@@ -1,0 +1,68 @@
+info:
+  contact: {}
+  license: {}
+paths:
+  /api/v1/tags:
+    get:
+      parameters:
+      - description: Name
+        in: query
+        name: name
+        type: string
+      - description: State
+        in: query
+        name: state
+        type: integer
+      produces:
+      - application/json
+      summary: Get multiple article tags
+    post:
+      parameters:
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: State
+        in: body
+        name: state
+        schema:
+          type: integer
+      - description: CreatedBy
+        in: body
+        name: created_by
+        schema:
+          type: integer
+      produces:
+      - application/json
+      summary: Add article tag
+  /api/v1/tags/{id}:
+    put:
+      parameters:
+      - description: ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      - description: State
+        in: body
+        name: state
+        schema:
+          type: integer
+      - description: ModifiedBy
+        in: body
+        name: modified_by
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      summary: Update article tag
+swagger: "2.0"
