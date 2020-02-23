@@ -1,0 +1,105 @@
+syntax = "proto3";
+package service;
+
+option java_package = "com.dust.pb_service.proto";
+
+message MyMessage{
+    enum DataType{
+        User = 0;
+        CreateRequest = 2;
+        CreateResponse = 3;
+        ReadRequest = 4;
+        ReadResponse = 5;
+        UpdateRequest = 6;
+        UpdateResponse = 7;
+        ReadAllRequest = 8;
+        ReadAllResponse = 9;
+    }
+
+}
+
+
+message User {
+    string name = 1;
+    string password = 2;
+    string permission = 3;
+}
+
+message CreateRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string token = 1;
+
+    // Task entity to add
+    User user = 2;
+}
+
+message CreateResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string token = 1;
+
+    // ID of created task
+    int64 userId = 2;
+}
+
+message ReadRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string token = 1;
+
+    // ID of created task
+    User user = 2;
+}
+
+message ReadResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string token = 1;
+
+    // ID of created task
+    int64 userId = 2;
+}
+
+message UpdateRequest{
+    // API versioning: it is my best practice to specify version explicitly
+    string token = 1;
+
+    // Task entity to update
+    User user = 2;
+}
+
+// Contains status of update operation
+message UpdateResponse{
+    // API versioning: it is my best practice to specify version explicitly
+    string token = 1;
+
+    // Contains number of entities have beed updated
+    // Equals 1 in case of succesfull update
+    int64 updated = 2;
+}
+
+
+message ReadAllRequest {
+    string token = 1;
+    int64 pageno = 2;
+    int64 count = 3;
+
+}
+
+message ReadAllResponse {
+    string token = 1;
+    repeated User users = 2;
+}
+
+
+service ToDoService {
+    // Create new user task
+    rpc Create(CreateRequest) returns (CreateResponse);
+
+    // Read user task
+    rpc Read(ReadRequest) returns (ReadResponse);
+
+    // Update user task
+    rpc Update(UpdateRequest) returns (UpdateResponse);
+
+    // Read all user tasks
+    rpc ReadAll(ReadAllRequest) returns (ReadAllResponse);
+
+}
