@@ -53,7 +53,6 @@ func (t * Transfer) SendMsg(dateType int, pbMessage proto.Message) (err error){
 	binary.BigEndian.PutUint32(buf[:4], sendLen)
 
 	buf2 := [1]byte{uint8(dateType)}
-	//binary.BigEndian.PutUint32(buf2[:], uint32(dateType))
 
 	if readLen, err = t.Conn.Write(buf[:4]); readLen != 4 && err != nil {
 		if readLen == 0 {
